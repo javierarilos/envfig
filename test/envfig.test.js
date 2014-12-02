@@ -8,7 +8,7 @@ suite('envfig', function(){
             config = envfig.config,
             settings;
 
-        test('should return default when setting is undefined in process.env', function(){
+        test('should return default value provided when setting is undefined in process.env', function(){
             assert.isUndefined(process.env['HOST_SETTING_DOES_NOT_EXIST']);
             assert.isUndefined(process.env['PORT_SETTING_DOES_NOT_EXIST']);
             assert.isUndefined(process.env['BOOL_SETTING_DOES_NOT_EXIST']);
@@ -54,6 +54,95 @@ suite('envfig', function(){
 
             assert.strictEqual(settings['boo'], true);
         });
+
+        test("should accept case-insensitive values for boolean settings", function(){
+            ['True', 'true', 'TRUE', 'tRue'].forEach(function(settingValue){
+                process.env['boo'] = settingValue;
+                settings = {
+                    boo: config('boo', false)
+                };
+                assert.strictEqual(settings['boo'], true);
+            });
+
+            ['False', 'false', 'FALSE', 'fALSe'].forEach(function(settingValue){
+                process.env['boo'] = settingValue;
+                settings = {
+                    boo: config('boo', true)
+                };
+                assert.strictEqual(settings['boo'], false);
+            });
+        });
+
+        test("should provide false value for incorrect boolean stringSetting", function(){
+            process.env['boo'] = 'non-boolean';
+
+            settings = {
+                boo: config('boo', true)
+            };
+            assert.strictEqual(settings['boo'], false);
+        });
+
+        test("should provide given default value for undefined setting", function(){
+            settings = {
+                boo: config(undefined, 'default-expected-value')
+            };
+            assert.strictEqual(settings['boo'], 'default-expected-value');
+        });
+
+        test("should provide given default value for null setting", function(){
+            settings = {
+                boo: config(null, 'default-expected-value')
+            };
+            assert.strictEqual(settings['boo'], 'default-expected-value');
+        });
+
+        test("should properly parse integer numbers", function(){
+            var strAndNumbers = [
+                ['1', 1],
+                ['33344', 33344],
+                ['-34', -34],
+                ['0', 0],
+                ['+34', 34]
+            ];
+
+            strAndNumbers.forEach(function(strAndNumber){
+                var str = strAndNumber[0];
+                var number = strAndNumber[1];
+
+                process.env['MY_NUMBER'] = str;
+
+                settings = {
+                    num: config('MY_NUMBER', -99999)
+                };
+                assert.strictEqual(settings['num'], number);
+            });
+
+        });
+
+
+        test("should properly parse floating point numbers", function(){
+            var strAndNumbers = [
+                ['1.8', 1.8],
+                ['33344.445566', 33344.445566],
+                ['-34.22', -34.22],
+                ['0.0', 0.0],
+                ['+34.55', 34.55]
+            ];
+
+            strAndNumbers.forEach(function(strAndNumber){
+                var str = strAndNumber[0];
+                var number = strAndNumber[1];
+
+                process.env['MY_NUMBER'] = str;
+
+                settings = {
+                    num: config('MY_NUMBER', -99999)
+                };
+                assert.strictEqual(settings['num'], number);
+            });
+
+        });
+
 
     })
 });

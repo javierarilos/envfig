@@ -50,7 +50,7 @@
 
     function config (setting, defaultValue) {
         var settingValue = getSettingValue(setting);
-        if (setting && settingValue){
+        if (setting && settingValue) {
             if (typeof settingValue === typeof defaultValue) {
                 return settingValue;
             } else if (typeof settingValue === 'string') {
@@ -58,7 +58,6 @@
             }
         }
         return defaultValue;
-
     }
 
     exports.config = config;
