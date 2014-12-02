@@ -1,17 +1,19 @@
+/*jslint node: true */
 'use strict';
+
 var assert = require('chai').assert;
 
 
-suite('envfig', function(){
-    suite('#config', function(){
+suite('envfig', function () {
+    suite('#config', function () {
         var envfig = require('../src/envfig'),
             config = envfig.config,
             settings;
 
         test('should return default value provided when setting is undefined in process.env', function(){
-            assert.isUndefined(process.env['HOST_SETTING_DOES_NOT_EXIST']);
-            assert.isUndefined(process.env['PORT_SETTING_DOES_NOT_EXIST']);
-            assert.isUndefined(process.env['BOOL_SETTING_DOES_NOT_EXIST']);
+            assert.isUndefined(process.env.HOST_SETTING_DOES_NOT_EXIST);
+            assert.isUndefined(process.env.PORT_SETTING_DOES_NOT_EXIST);
+            assert.isUndefined(process.env.BOOL_SETTING_DOES_NOT_EXIST);
 
             settings = {
                 host: config('HOST_SETTING_DOES_NOT_EXIST', 'ahost'),
@@ -19,67 +21,67 @@ suite('envfig', function(){
                 boo:  config('BOOL_SETTING_DOES_NOT_EXIST', true)
             };
 
-            assert.strictEqual(settings['host'], 'ahost');
-            assert.strictEqual(settings['port'], 80);
-            assert.strictEqual(settings['boo'], true);
+            assert.strictEqual(settings.host, 'ahost');
+            assert.strictEqual(settings.port, 80);
+            assert.strictEqual(settings.boo, true);
 
         });
 
         test('should return setting when it is defined in process.env', function(){
-            process.env['host'] = 'localhost';
+            process.env.host = 'localhost';
 
             settings = {
                 host: config('host', 'another')
             };
 
-            assert.strictEqual(settings['host'], 'localhost');
+            assert.strictEqual(settings.host, 'localhost');
         });
 
         test("should return setting converted to number when this is default's type", function(){
-            process.env['port'] = String(80);
+            process.env.port = String(80);
 
             settings = {
                 port: config('port', 9999)
             };
 
-            assert.strictEqual(settings['port'], 80);
+            assert.strictEqual(settings.port, 80);
         });
 
         test("should return setting converted to boolean when this is default's type", function(){
-            process.env['boo'] = 'true';
+            process.env.boo = 'true';
 
             settings = {
                 boo: config('boo', false)
             };
 
-            assert.strictEqual(settings['boo'], true);
+            assert.strictEqual(settings.boo, true);
         });
 
         test("should accept case-insensitive values for boolean settings", function(){
             ['True', 'true', 'TRUE', 'tRue'].forEach(function(settingValue){
-                process.env['boo'] = settingValue;
+                process.env.boo = settingValue;
                 settings = {
                     boo: config('boo', false)
                 };
-                assert.strictEqual(settings['boo'], true);
+                assert.strictEqual(settings.boo, true);
             });
 
             ['False', 'false', 'FALSE', 'fALSe'].forEach(function(settingValue){
-                process.env['boo'] = settingValue;
+                process.env.boo = settingValue;
                 settings = {
                     boo: config('boo', true)
                 };
-                assert.strictEqual(settings['boo'], false);
+                assert.strictEqual(settings.boo, false);
             });
         });
 
         test("should provide false value for incorrect boolean stringSetting", function(){
-            process.env['boo'] = 'non-boolean';
+            process.env.boo = 'non-boolean';
 
             settings = {
                 boo: config('boo', true)
             };
-            assert.strictEqual(settings['boo'], false);
+            assert.strictEqual(settings.boo, false);
         });
 
         test("should provide given default value for undefined setting", function(){
@@ -109,7 +111,7 @@ suite('envfig', function(){
                 var str = strAndNumber[0];
                 var number = strAndNumber[1];
 
-                process.env['MY_NUMBER'] = str;
+                process.env.MY_NUMBER = str;
 
                 settings = {
                     num: config('MY_NUMBER', -99999)
@@ -132,7 +134,7 @@ suite('envfig', function(){
                 var str = strAndNumber[0];
                 var number = strAndNumber[1];
 
-                process.env['MY_NUMBER'] = str;
+                process.env.MY_NUMBER = str;
 
                 settings = {
                     num: config('MY_NUMBER', -99999)
@@ -152,7 +154,7 @@ suite('envfig', function(){
                 var str = strAndObj[0];
                 var obj = strAndObj[1];
 
-                process.env['MY_OBJ'] = str;
+                process.env.MY_OBJ = str;
 
                 settings = {
                     obj: config('MY_OBJ', {attr: 999})
