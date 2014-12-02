@@ -4,7 +4,7 @@
   "description": "minimalist library for easily enabling config via envars",
   "main": "src/envfig.js",
   "scripts": {
-    "test": "mocha -u tdd -R nyan test/"
+    "test": "mocha -u tdd -R list test/"
   },
   "repository": {
     "type": "git",
