@@ -1,0 +1,31 @@
+{
+  "name": "envfig",
+  "version": "0.0.1",
+  "description": "minimalist library for easily enabling config via envars",
+  "main": "src/envfig.js",
+  "scripts": {
+    "test": "mocha -u tdd -R nyan test/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/javierarilos/envfig.git"
+  },
+  "keywords": [
+    "node",
+    "javascript",
+    "config",
+    "envars"
+  ],
+  "author": "javierarilos",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/javierarilos/envfig/issues"
+  },
+  "homepage": "https://github.com/javierarilos/envfig",
+  "dependencies": {
+    "mocha": "^2.0.1"
+  },
+  "devDependencies": {
+    "chai": "^1.10.0"
+  }
+}
