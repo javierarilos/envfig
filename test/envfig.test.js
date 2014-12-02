@@ -119,8 +119,7 @@ suite('envfig', function(){
 
         });
 
-
-        test("should properly parse floating point numbers", function(){
+        test("should properly parse float numbers", function(){
             var strAndNumbers = [
                 ['1.8', 1.8],
                 ['33344.445566', 33344.445566],
@@ -140,9 +139,26 @@ suite('envfig', function(){
                 };
                 assert.strictEqual(settings['num'], number);
             });
-
         });
 
 
+        test("should properly parse objects", function(){
+            var strAndObjs = [
+                ['{"a": 1, "b": "b", "c": true}', {"a": 1, "b": "b", "c": true}],
+                ['{"a": 1, "b": "b", "c": {"d": 99, "e": "e"}}', {"a": 1, "b": "b", "c": {"d": 99, "e": "e"}}]
+            ];
+
+            strAndObjs.forEach(function(strAndObj){
+                var str = strAndObj[0];
+                var obj = strAndObj[1];
+
+                process.env['MY_OBJ'] = str;
+
+                settings = {
+                    obj: config('MY_OBJ', {attr: 999})
+                };
+                assert.deepEqual(settings['obj'], obj);
+            });
+        });
     })
 });
