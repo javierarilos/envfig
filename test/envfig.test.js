@@ -4,8 +4,8 @@
 var assert = require('chai').assert;
 
 
-suite('envfig', function () {
-    suite('#config', function () {
+suite('envfig Module TestSuite', function () {
+    suite('envfig.config function', function () {
         var envfig = require('../src/envfig'),
             config = envfig.config,
             settings;

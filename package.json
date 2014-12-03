@@ -4,7 +4,7 @@
   "description": "minimalist library for easily enabling config via envars",
   "main": "src/envfig.js",
   "scripts": {
-    "test": "mocha -u tdd -R list test/"
+    "test": "istanbul cover ./node_modules/.bin/_mocha -- -u tdd test/"
   },
   "repository": {
     "type": "git",
@@ -22,10 +22,10 @@
     "url": "https://github.com/javierarilos/envfig/issues"
   },
   "homepage": "https://github.com/javierarilos/envfig",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "mocha": "*",
-    "chai": "*"
+    "chai": "*",
+    "istanbul": "*"
   }
 }
