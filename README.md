@@ -1,6 +1,6 @@
 envfig
 ======
-[![Build Status](https://travis-ci.org/javierarilos/envfig.svg?branch=master)](https://travis-ci.org/javierarilos/envfig) [![Code Climate](https://codeclimate.com/github/javierarilos/envfig/badges/gpa.svg)](https://codeclimate.com/github/javierarilos/envfig)
+[![Build Status](https://travis-ci.org/javierarilos/envfig.svg?branch=master)](https://travis-ci.org/javierarilos/envfig) [![Code Climate](https://codeclimate.com/github/javierarilos/envfig/badges/gpa.svg)](https://codeclimate.com/github/javierarilos/envfig) [![Test Coverage](https://codeclimate.com/github/javierarilos/envfig/badges/coverage.svg)](https://codeclimate.com/github/javierarilos/envfig)
 
 ***envfig*** is a minimalist Node.js library for easily enabling configuration via envars. It safely allows to get settings from ***process.env*** making type conversions (process.env.XXX is a string) and managing default values.
 
