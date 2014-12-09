@@ -12,10 +12,7 @@
      * @return {boolean} true for strBool === true or True or TRUE ... false for all the rest
      */
     function parseBool(strBool) {
-        if (strBool && (typeof strBool === 'string')) {
-            return strBool.toLowerCase() === 'true';
-        }
-        return false;
+        return strBool.toLowerCase() === 'true';
     }
 
     function parseNumber(strNumber) {

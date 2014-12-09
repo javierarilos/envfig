@@ -57,6 +57,37 @@ suite('envfig Module TestSuite', function () {
             assert.strictEqual(settings.boo, true);
         });
 
+        test("should return false when envar is 'false' and default is boolean", function(){
+            process.env.boo = 'false';
+
+            settings = {
+                boo: config('boo', true)
+            };
+
+            assert.strictEqual(settings.boo, false);
+        });
+
+        test("should return true when envar is 'true' abd default is boolean", function(){
+            process.env.boo = 'true';
+
+            settings = {
+                boo: config('boo', false)
+            };
+
+            assert.strictEqual(settings.boo, true);
+        });
+
+        test("should return false when envar is invalid boolean and default is boolean", function(){
+            process.env.boo = 'INVALID-BOOLEAN';
+
+            settings = {
+                boo: config('boo', true)
+            };
+
+            assert.strictEqual(settings.boo, false);
+        });
+
+
         test("should accept case-insensitive values for boolean settings", function(){
             ['True', 'true', 'TRUE', 'tRue'].forEach(function(settingValue){
                 process.env.boo = settingValue;
