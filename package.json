@@ -1,6 +1,6 @@
 {
   "name": "envfig",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "minimalist library for easily enabling config via envars",
   "main": "src/envfig.js",
   "scripts": {
