@@ -20,7 +20,11 @@
     }
 
     function parseJsonObject(strJson) {
-        return JSON.parse(strJson);
+        try {
+            return JSON.parse(strJson);
+        } catch (e) {
+            return null;
+        }
     }
 
     /**
@@ -35,9 +39,11 @@
         case 'boolean':
             return parseBool(settingValue);
         case 'number':
-            return parseNumber(settingValue);
+            var parsedNumber = parseNumber(settingValue);
+            return isNaN(parsedNumber) ? defaultValue : parsedNumber;
         case 'object':
-            return parseJsonObject(settingValue);
+            var parsedObject = parseJsonObject(settingValue);
+            return parsedObject ? parsedObject : defaultValue;
         default:
             throw new Error('Unable to parse setting: Unsupported type: ' +
                 targetType + ' for value: ' + defaultValue);

@@ -87,7 +87,6 @@ suite('envfig Module TestSuite', function () {
             assert.strictEqual(settings.boo, false);
         });
 
-
         test("should accept case-insensitive values for boolean settings", function(){
             ['True', 'true', 'TRUE', 'tRue'].forEach(function(settingValue){
                 process.env.boo = settingValue;
@@ -174,7 +173,6 @@ suite('envfig Module TestSuite', function () {
             });
         });
 
-
         test("should properly parse objects", function(){
             var strAndObjs = [
                 ['{"a": 1, "b": "b", "c": true}', {"a": 1, "b": "b", "c": true}],
@@ -192,6 +190,22 @@ suite('envfig Module TestSuite', function () {
                 };
                 assert.deepEqual(settings['obj'], obj);
             });
+        });
+
+        test("should provide default value for invalid numbers", function(){
+            process.env.MY_NUMBER = '11aa11';
+            settings = {
+                boo: config('MY_NUMBER', 444)
+            };
+            assert.strictEqual(settings['boo'], 444);
+        });
+
+        test("should provide default value for invalid objects", function(){
+            process.env.MY_OBJECT = 'UUUUUUUUUUUUUUU';
+            settings = {
+                boo: config('MY_OBJECT', {a: 'valid-object'})
+            };
+            assert.deepEqual(settings['boo'], {a: 'valid-object'});
         });
     })
 });
