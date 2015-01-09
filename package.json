@@ -28,5 +28,8 @@
     "codeclimate-test-reporter": "0.0.4",
     "istanbul": "*",
     "mocha": "*"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   }
 }
